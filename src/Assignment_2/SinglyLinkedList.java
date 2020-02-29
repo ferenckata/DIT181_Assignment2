@@ -1,5 +1,8 @@
 package Assignment_2;
 
+import java.awt.*;
+import java.util.EmptyStackException;
+
 class SinglyLinkedList<Item> {
 
     private int size;
@@ -50,8 +53,18 @@ class SinglyLinkedList<Item> {
     public Item get(int index) {
         // ToDo: do not forget to implement a condition for index out of bounds
         // if such event would occur:
-        // throw new IllegalArgumentException("Index ouf of bounds");
-        throw new UnsupportedOperationException();
+        if (index>=size() || index < 0) {
+            throw new IllegalArgumentException("Index ouf of bounds");
+        }
+        Node<Item> current = null;
+        if (index < size()) {
+            current = head;
+            for (int i = 0; i < index; i++) {
+                current = current.next;
+            }
+        }
+        return current.el;
+
     }
 
     /**
@@ -62,8 +75,39 @@ class SinglyLinkedList<Item> {
      */
     public void insertAt(int index, Item newElement) {
         // ToDo: again, check for exception
-        // throw new IllegalArgumentException("Index ouf of bounds");
-        throw new UnsupportedOperationException();
+        if (index>size() || index < 0) {
+            throw new IllegalArgumentException("Index ouf of bounds");
+        }
+        if (head == null){
+            throw new RuntimeException("List is Empty");
+        }
+        if (index==size()) {
+            Node<Item> current = head;
+            while (current.next != null){
+                current = current.next;
+            }
+            Node<Item> newNode = new Node<>();
+            newNode.next = null;
+            newNode.el = newElement;
+            current.next = newNode;
+            return;
+        }
+        if (index == 0){
+            head.next = head;
+            head = new Node<>();
+            head.el = newElement;
+        }
+        else {
+            Node<Item> current = head;
+            for (int i = 0; i < index-1; i++){
+                current = current.next;
+            }
+            Node<Item> newNode = new Node<>();
+            newNode.el = newElement;
+            newNode.next = current.next;
+            current.next = newNode;
+        }
+
     }
 
     /**
@@ -72,16 +116,49 @@ class SinglyLinkedList<Item> {
      * @param index the position to remove the item from
      */
     public void removeAt(int index) {
-        // ToDo: if (...) throw new IllegalArgumentException("Index ouf of bounds");
-        throw new UnsupportedOperationException();
+        if (index >= size() || index < 0) {
+            throw new IllegalArgumentException("Index ouf of bounds");
+        }
+        if (head == null) {
+            throw new RuntimeException("Cannot delete");
+        }
+        if (index == 0) {
+            head = head.next;
+        }
+        else {
+            Node<Item> current = head;
+            Node<Item> before = null;
+            int i = 0;
+            while (current != null && index != i) {
+                before = current;
+                current = current.next;
+                i++;
+            }
+            if (current == null){
+                throw new RuntimeException("cannot delete");
+            }
+            before.next = current.next;
+        }
     }
-
     /**
      * Reverse the list
      *
      */
     public void reverse() {
-        throw new UnsupportedOperationException();
+        if (head==null){
+            throw new RuntimeException("List is empty");
+        }
+        else {
+            Node<Item> current = head;
+            Node<Item> before = null;
+            while (current != null) {
+                Node<Item> nextNode = current.next;
+                current.next = before;
+                before = current;
+                current = nextNode;
+            }
+        head = before;
+        }
     }
 
     public static void main(String[] args) {
