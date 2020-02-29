@@ -74,7 +74,7 @@ class SinglyLinkedList<Item> {
      * @param newElement the object of type Item you want to insert
      */
     public void insertAt(int index, Item newElement) {
-        if (index>size() || index < 0) {
+        if (index >= size() || index < 0) {
             throw new IllegalArgumentException("Index ouf of bounds");
         }
         if (head == null){
@@ -100,9 +100,6 @@ class SinglyLinkedList<Item> {
             Node<Item> current = head;
             for (int i = 0; i < index; i++){
                 current = current.next;
-                if (current == null){
-                    break;
-                }
             }
             Node<Item> newNode = new Node<>();
             newNode.el = newElement;
