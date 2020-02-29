@@ -1,5 +1,6 @@
 package Assignment_2;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -204,8 +205,26 @@ class Tree<Item extends Comparable<Item>> {
      * tree in depth-first order
      */
     public String DFSToString() {
-        throw new UnsupportedOperationException();
+
+        ArrayList numbers = new ArrayList();
+        DFSToString(root, numbers);
+
+        String numberString = String.join(",", numbers);
+        return numberString;
     }
+
+    public ArrayList DFSToString(Node root, ArrayList numbers){ // Returns ArrayLis of DFSsorted nodes
+
+        if (root == null){
+            return numbers;
+        }
+        numbers.add(String.valueOf(root.el));
+        DFSToString(root.left, numbers);
+        DFSToString(root.right, numbers);
+
+        return numbers;
+    }
+
 
     /**
      * Assignment 2, Question 9. Insert i into a binary search tree
@@ -228,7 +247,8 @@ class Tree<Item extends Comparable<Item>> {
     public static void main(String[] args) {
         Tree<Integer> t = exampleTree();
         // System.out.println("Size: " + t.size());
-        t.printTree();
+        //t.printTree();
+        System.out.println(t.DFSToString());
     }
 }
 
