@@ -74,24 +74,23 @@ class SinglyLinkedList<Item> {
      * @param newElement the object of type Item you want to insert
      */
     public void insertAt(int index, Item newElement) {
-        // ToDo: again, check for exception
         if (index>size() || index < 0) {
             throw new IllegalArgumentException("Index ouf of bounds");
         }
         if (head == null){
             throw new RuntimeException("List is Empty");
         }
-        if (index==size()) {
-            Node<Item> current = head;
-            while (current.next != null){
-                current = current.next;
-            }
-            Node<Item> newNode = new Node<>();
-            newNode.next = null;
-            newNode.el = newElement;
-            current.next = newNode;
-            return;
-        }
+//        if (index==size()) {
+//            Node<Item> current = head;
+//            while (current.next != null){
+//                current = current.next;
+//            }
+//            Node<Item> newNode = new Node<>();
+//            newNode.next = null;
+//            newNode.el = newElement;
+//            current.next = newNode;
+//            return;
+//        }
         if (index == 0){
             head.next = head;
             head = new Node<>();
@@ -99,8 +98,11 @@ class SinglyLinkedList<Item> {
         }
         else {
             Node<Item> current = head;
-            for (int i = 0; i < index-1; i++){
+            for (int i = 0; i < index; i++){
                 current = current.next;
+                if (current == null){
+                    break;
+                }
             }
             Node<Item> newNode = new Node<>();
             newNode.el = newElement;
