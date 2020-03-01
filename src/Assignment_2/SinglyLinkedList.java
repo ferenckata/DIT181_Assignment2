@@ -25,6 +25,16 @@ class SinglyLinkedList<Item> {
     }
 
     public int size() {
+        if(head == null){
+            size = 0;
+        }
+        Node<Item> current = head;
+        int count = 0;
+        while (current != null){
+            count++;
+            current = current.next;
+        }
+        size = count;
         return size;
     }
 
@@ -40,7 +50,6 @@ class SinglyLinkedList<Item> {
      *
      */
     public SinglyLinkedList() {
-        throw new UnsupportedOperationException();
 
     }
 
@@ -59,7 +68,7 @@ class SinglyLinkedList<Item> {
         Node<Item> current = null;
         if (index < size()) {
             current = head;
-            for (int i = 0; i < index; i++) {
+            for (int i = 0; i < index; i++) { // Change to one if index is meant to be position
                 current = current.next;
             }
         }
@@ -74,31 +83,21 @@ class SinglyLinkedList<Item> {
      * @param newElement the object of type Item you want to insert
      */
     public void insertAt(int index, Item newElement) {
-        if (index >= size() || index < 0) {
+        if (index > size() || index < 0) {
             throw new IllegalArgumentException("Index ouf of bounds");
         }
         if (head == null){
             throw new RuntimeException("List is Empty");
         }
-//        if (index==size()) {
-//            Node<Item> current = head;
-//            while (current.next != null){
-//                current = current.next;
-//            }
-//            Node<Item> newNode = new Node<>();
-//            newNode.next = null;
-//            newNode.el = newElement;
-//            current.next = newNode;
-//            return;
-//        }
         if (index == 0){
-            head.next = head;
-            head = new Node<>();
-            head.el = newElement;
+            Node<Item> newNode = new Node<>();
+            newNode.next = head;
+            newNode.el = newElement;
+            head = newNode;
         }
         else {
             Node<Item> current = head;
-            for (int i = 0; i < index; i++){
+            for (int i = 0; i < index - 1; i++){
                 current = current.next;
             }
             Node<Item> newNode = new Node<>();
@@ -127,7 +126,7 @@ class SinglyLinkedList<Item> {
         else {
             Node<Item> current = head;
             Node<Item> before = null;
-            int i = 0;
+            int i = 0; //change to 1 if position is to be removed
             while (current != null && index != i) {
                 before = current;
                 current = current.next;
@@ -162,6 +161,61 @@ class SinglyLinkedList<Item> {
 
     public static void main(String[] args) {
         SinglyLinkedList<Integer> testList = new SinglyLinkedList<>();
-        System.out.println(testList.size());
+        System.out.println("Size empty: " + testList.size());
+        testList.addFirst(1);
+        testList.addFirst(2);
+        System.out.println("Size 2 elements: " + testList.size());
+        testList.addFirst(3);
+        testList.addFirst(4);
+        testList.addFirst(5);
+        testList.addFirst(6);
+
+        System.out.print("\nSize " + testList.size());
+        testList.printList();
+
+        System.out.println("Item at index 2: " + testList.get(2));
+
+        testList.reverse();
+        System.out.print("\nSize " + testList.size());
+        System.out.print("\nReverse: ");
+        testList.printList();
+
+        testList.removeAt(2);
+        System.out.print("\nSize " + testList.size());
+        System.out.print("\nRemoved item at index 2:");
+        testList.printList();
+
+        testList.insertAt(2, 3);
+        System.out.print("\nSize " + testList.size());
+        System.out.print("\nAdded 3 at index 2:");
+        testList.printList();
+
+
+    }
+
+    private void printList(){
+        Node<Item> itemNode = head;
+        if (head == null){
+            System.out.println("List is empty");
+        }
+        System.out.println();
+        while (itemNode != null){
+            System.out.print(itemNode.el + ", ");
+            itemNode = itemNode.next;
+        }
+        System.out.println("\nEnd of list");
+
+    }
+    private void addFirst(Item item){
+        Node<Item> newHead = new Node<>();
+        newHead.el = item;
+        if (head==null){
+            head = newHead;
+            newHead.next = null;
+            return;
+        }
+        newHead.next = head;
+        head = newHead;
+
     }
 }
