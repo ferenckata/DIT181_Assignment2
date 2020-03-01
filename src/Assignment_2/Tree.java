@@ -206,14 +206,35 @@ class Tree<Item extends Comparable<Item>> {
      */
     public String DFSToString() {
 
-        ArrayList numbers = new ArrayList();
+        if (root == null){
+            return "";
+        }
+        ArrayList<String> numbers = new ArrayList();
         DFSToString(root, numbers);
 
         String numberString = String.join(",", numbers);
         return numberString;
     }
 
-    public ArrayList DFSToString(Node root, ArrayList numbers){ // Returns ArrayLis of DFSsorted nodes
+    public String DFSToStringWithStack(){
+        Stack<Node> stack = new Stack<>();
+        stack.add(root);
+        StringBuilder string = new StringBuilder();
+        while (!stack.isEmpty()){
+            Node current = stack.pop();
+            string.append(current.el).append(",");
+            if (current.right != null){
+                stack.add(current.right);
+            }
+            if (current.left != null){
+                stack.add(current.left);
+            }
+        }
+        string.setLength(string.length()-1);
+        return String.valueOf(string);
+    }
+
+    private ArrayList<String> DFSToString(Node root, ArrayList<String> numbers){ // Returns ArrayLis of DFSsorted nodes
 
         if (root == null){
             return numbers;
@@ -246,9 +267,10 @@ class Tree<Item extends Comparable<Item>> {
 
     public static void main(String[] args) {
         Tree<Integer> t = exampleTree();
-        // System.out.println("Size: " + t.size());
-        //t.printTree();
+        System.out.println("Size: " + t.size());
+        t.printTree();
         System.out.println(t.DFSToString());
+        System.out.println(t.DFSToStringWithStack());
     }
 }
 
