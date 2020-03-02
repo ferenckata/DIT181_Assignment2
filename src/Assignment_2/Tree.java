@@ -197,7 +197,30 @@ class Tree<Item extends Comparable<Item>> {
      * @return the element found at the position
      */
     public Item nthBFS(int n) {
-        throw new UnsupportedOperationException();
+
+        Queue<Node> queue = new LinkedList<Node>();
+
+        if (root == null || n < 0 || n >= size(root)){
+            throw new IllegalArgumentException("Tree is empty or invalid position request.");
+        }
+        if (n == 0){
+            return root.el;
+        }
+        queue.add(root);
+        Node node = null;
+        int count = 0;
+        while (!queue.isEmpty() && count != n) {
+            node = queue.poll();
+
+            if (node.left != null) {
+                queue.add(node.left);
+            }
+            if (node.right != null) {
+                queue.add(node.right);
+            }
+            count++;
+        }
+        return (Item) queue.poll().el;
     }
 
     /**
@@ -267,10 +290,11 @@ class Tree<Item extends Comparable<Item>> {
 
     public static void main(String[] args) {
         Tree<Integer> t = exampleTree();
-        System.out.println("Size: " + t.size());
+        /*System.out.println("Size: " + t.size());
         t.printTree();
         System.out.println(t.DFSToString());
-        System.out.println(t.DFSToStringWithStack());
+        System.out.println(t.DFSToStringWithStack());*/
+        System.out.println(t.nthBFS(7));
     }
 }
 
