@@ -62,13 +62,13 @@ class SinglyLinkedList<Item> {
     public Item get(int index) {
         // ToDo: do not forget to implement a condition for index out of bounds
         // if such event would occur:
-        if (index>=size() || index < 0) {
+        if (index >= size() || index < 0) {
             throw new IllegalArgumentException("Index ouf of bounds");
         }
         Node<Item> current = null;
         if (index < size()) {
             current = head;
-            for (int i = 0; i < index; i++) { // Change to one if index is meant to be position
+            for (int i = 0; i < index; i++) {
                 current = current.next;
             }
         }
@@ -143,7 +143,7 @@ class SinglyLinkedList<Item> {
      *
      */
     public void reverse() {
-        if (head==null){
+        if (head == null){
             throw new RuntimeException("List is empty");
         }
         else {

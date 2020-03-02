@@ -291,7 +291,7 @@ class Tree<Item extends Comparable<Item>> {
         if (number < (Integer) node.el){
             node.left = insertBST(number, node.left);
         }
-        else if (number > (Integer) node.el){
+        else if (number >= (Integer) node.el){ // If number is equal to an already existing, it is put on the right side
             node.right = insertBST(number, node.right);
         }
         return node;
@@ -307,13 +307,13 @@ class Tree<Item extends Comparable<Item>> {
     }
 
     public static void main(String[] args) {
-        Tree<Integer> t = exampleTree();
+        Tree<Integer> t = exampleTreeBin();
         /*System.out.println("Size: " + t.size());
         t.printTree();
-        System.out.println(t.DFSToString());
-        System.out.println(t.DFSToStringWithStack());
-        System.out.println(t.nthBFS(7));*/
-        t.insertBST(3);
+        System.out.println(t.DFSToString());*/
+        //System.out.println(t.DFSToStringWithStack());
+        //System.out.println(t.nthBFS(7));
+        t.insertBST(-1);
         t.printTree();
     }
 }
