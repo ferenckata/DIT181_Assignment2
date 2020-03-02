@@ -257,7 +257,7 @@ class Tree<Item extends Comparable<Item>> {
         return String.valueOf(string);
     }
 
-    private ArrayList<String> DFSToString(Node root, ArrayList<String> numbers){ // Returns ArrayLis of DFSsorted nodes
+    private ArrayList<String> DFSToString(Node root, ArrayList<String> numbers){
 
         if (root == null){
             return numbers;
@@ -276,7 +276,25 @@ class Tree<Item extends Comparable<Item>> {
      * @param i the Item to insert
      */
     public void insertBST(Item item) {
-        throw new UnsupportedOperationException();
+        int number = (Integer) item;
+        root = insertBST(number, root);
+        System.out.println("Insertion successful!");
+    }
+
+    private Node insertBST(int number, Node node){
+
+        if (node == null){
+            node = new Node();
+            node.el = number;
+            return node;
+        }
+        if (number < (Integer) node.el){
+            node.left = insertBST(number, node.left);
+        }
+        else if (number > (Integer) node.el){
+            node.right = insertBST(number, node.right);
+        }
+        return node;
     }
 
     /**
@@ -293,8 +311,10 @@ class Tree<Item extends Comparable<Item>> {
         /*System.out.println("Size: " + t.size());
         t.printTree();
         System.out.println(t.DFSToString());
-        System.out.println(t.DFSToStringWithStack());*/
-        System.out.println(t.nthBFS(7));
+        System.out.println(t.DFSToStringWithStack());
+        System.out.println(t.nthBFS(7));*/
+        t.insertBST(3);
+        t.printTree();
     }
 }
 
